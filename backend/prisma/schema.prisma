@@ -1,33 +1,48 @@
+generator client {
+  provider  = "prisma-client-js"
+  engineType = "binary"
+}
+
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url      = env("DATABASE_URL")
 }
-generator client {
-  provider = "prisma-client-js"
+
+model User {
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  password String
+  shipments Shipment[]
 }
+
 
 model Shipment {
-  id                    Int      @id @default(autoincrement())
-  trackingNumber        String   @unique
-  carrier               String
-  origin                String
-  destination           String
-  recipientName         String
-  status                ShipmentStatus @default(CREATED)
-  weightKg              Float
-  lengthCm              Int
-  widthCm               Int
-  heightCm              Int
-  isFragile             Boolean @default(false)
-  shippingCost          Float
-  shippedAt             DateTime?
+  id           Int       @id @default(autoincrement())
+  trackingNumber String   @unique
+  carrier      String
+  origin       String
+  destination  String
+  recipientName String
+  status       Status     @default(CREATED)
+  weightKg     Float
+  lengthCm     Int
+  widthCm      Int
+  heightCm     Int
+  isFragile    Boolean    @default(false)
+  shippingCost Float
+  shippedAt    DateTime?
   estimatedDeliveryDate DateTime?
-  deliveredAt           DateTime?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  deliveredAt  DateTime?
+
+  // relations
+  user     User     @relation(fields: [userId], references: [id])
+  userId   Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-enum ShipmentStatus {
+enum Status {
   CREATED
   PICKED_UP
   IN_TRANSIT

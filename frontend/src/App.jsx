@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import ShipmentsList from './pages/ShipmentsList';
 import ShipmentForm from './pages/ShipmentForm';
@@ -21,6 +21,25 @@ export default function App() {
         <Route path="/shipments/:id" element={<ShipmentDetail />} />
       </Routes>
     </div>
+  );
+}
+*/
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import Shipments from "./pages/Shipments";
+import { useAuth } from "./context/AuthContext";
+
+function Private({ children }) {
+  const { token } = useAuth();
+  return token ? children : <Navigate to="/login" replace />;
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/login" element={<Login/>} />
+      <Route path="/" element={<Private><Shipments/></Private>} />
+    </Routes>
   );
 }
 
