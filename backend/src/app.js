@@ -7,10 +7,10 @@ import { config } from "./config/env.js";
 import authRoutes from "./routes/authRoutes.js";
 import shipmentRoutes from "./routes/shipmentRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
-app.use("/ai", aiRoutes);
 
 const app = express();
 app.use(express.json());
+app.use("/ai", aiRoutes);
 app.use(cors({ origin: config.corsOrigin, credentials: true }));
 
 const swaggerSpec = swaggerJsdoc({
