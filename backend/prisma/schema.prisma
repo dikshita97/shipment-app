@@ -1,0 +1,38 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Shipment {
+  id                    Int      @id @default(autoincrement())
+  trackingNumber        String   @unique
+  carrier               String
+  origin                String
+  destination           String
+  recipientName         String
+  status                ShipmentStatus @default(CREATED)
+  weightKg              Float
+  lengthCm              Int
+  widthCm               Int
+  heightCm              Int
+  isFragile             Boolean @default(false)
+  shippingCost          Float
+  shippedAt             DateTime?
+  estimatedDeliveryDate DateTime?
+  deliveredAt           DateTime?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+enum ShipmentStatus {
+  CREATED
+  PICKED_UP
+  IN_TRANSIT
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+  RETURNED
+}
