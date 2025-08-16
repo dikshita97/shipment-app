@@ -2,7 +2,7 @@
 
 ---
 
-A polished full-stack **Shipment Management** application — built with modern React/Next.js + TypeScript tooling.  
+A polished full-stack **Shipment Management** application built with modern React/Next.js + TypeScript tooling.  
 Everything about the project (architecture, API docs, setup, design notes) lives in the `docs/` folder.
 
 🔗 **Live demo:** https://v0-build-application-from-scratch.vercel.app/  
